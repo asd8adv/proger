@@ -1,0 +1,11 @@
+1   eng:{new game} rus:{новая игра}
+2   eng:{drink} rus:{выпить}
+3   eng:{work} rus:{работать}
+4   eng:{next day} rus:{след. день}
+5   eng:{day} rus:{день}
+6   eng:{week} rus:{неделя}
+7   eng:{stress} rus:{сресс}
+8   eng:{alcoholism} rus:{алкоголизм}
+9   eng:{reputation} rus:{репутация}
+10  eng:{burnout} rus:{выгорание}
+11  eng:{new day, new dollar.} rus:{День прошел, в кармане доллар.}	
