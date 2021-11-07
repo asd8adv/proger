@@ -1,5 +1,5 @@
 #include "goal.h"
-
+#include "dictionary.h"
 /*********************************
 ***********struct goal************
 *********************************/
@@ -23,16 +23,17 @@ void goal::setPosition(sf::Vector2f pos) {
 }
 
 
-void goal::setDescription(std::string desc) {
+void goal::setDescription(sf::String desc) {
 	description_ = desc;
 	updateDescription();
 }
+
 void goal::updateDescription() {
-	std::string str = description_;
-	str += " ";
-	str += std::to_string(current_);
-	str += "/";
-	str += std::to_string(required_);
+	sf::String str = description_;
+	str += L" ";
+	str += sf::String(std::to_string(current_));
+	str += L"/";
+	str += sf::String(std::to_string(required_));
 	goalText_.setString(str);
 }
 
@@ -81,10 +82,10 @@ GoalBlock::GoalBlock() :
 	burnout(0, 80) 
 {
 	setPosition({ 200, 40 });
-	stress.setDescription("stress");
-	alcoholism.setDescription("alcoholism");
-	reputation.setDescription("reputation");
-	burnout.setDescription("burnout");
+	stress.setDescription(Dictionary::GetInstance()->getString(World::stress));
+	alcoholism.setDescription(Dictionary::GetInstance()->getString(World::alcoholism));
+	reputation.setDescription(Dictionary::GetInstance()->getString(World::reputation));
+	burnout.setDescription(Dictionary::GetInstance()->getString(World::burnout));
 }
 
 void GoalBlock::setPosition(sf::Vector2f pos) {

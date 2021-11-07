@@ -12,7 +12,8 @@ set(HEADERS
 	${SOURCES_PATH}/wallClock.h
 	${SOURCES_PATH}/player.h
 	${SOURCES_PATH}/calendar.h
-	${SOURCES_PATH}/messages.h	
+	${SOURCES_PATH}/messages.h
+	${SOURCES_PATH}/dictionary.h	
 )
 set (SOURCES
 	${SOURCES_PATH}/main.cpp
@@ -24,7 +25,8 @@ set (SOURCES
 	${SOURCES_PATH}/wallClock.cpp
 	${SOURCES_PATH}/player.cpp
 	${SOURCES_PATH}/calendar.cpp
-	${SOURCES_PATH}/messages.cpp	
+	${SOURCES_PATH}/messages.cpp
+	${SOURCES_PATH}/dictionary.cpp	
 )
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})

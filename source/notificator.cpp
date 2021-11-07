@@ -1,11 +1,9 @@
 #include "notificator.h"
 
-Notificator* Notificator::NotificatorInstance_ = nullptr;
-
-//
 /*********************************
 *********class Notificator********
 *********************************/
+Notificator* Notificator::NotificatorInstance_ = nullptr;
 
 Notificator* Notificator::GetInstance() {
 	if (NotificatorInstance_ == nullptr)

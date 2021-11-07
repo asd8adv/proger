@@ -21,7 +21,7 @@ protected:
 		return "res/impact.ttf";
 	}
 public:
-	std::string description_;
+	sf::String description_;
 	sf::Font fnt_;
 	sf::Text goalText_;
 	int current_;
@@ -34,7 +34,7 @@ public:
 
 	void virtual setPosition(sf::Vector2f pos);
 
-	void setDescription(std::string desc);
+	void setDescription(sf::String desc);
 
 	void updateDescription();
 
