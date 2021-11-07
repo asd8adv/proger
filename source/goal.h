@@ -21,12 +21,12 @@ protected:
 		return "res/impact.ttf";
 	}
 public:
-	std::string description;
-	sf::Font fnt;
-	sf::Text goalText;
-	int current;
-	int required;
-	bool goalEnd;
+	std::string description_;
+	sf::Font fnt_;
+	sf::Text goalText_;
+	int current_;
+	int required_;
+	bool goalEnd_;
 
 
 	goal();
@@ -56,7 +56,7 @@ public:
 
 	virtual void onEvent(EVENT ev) override {
 		if (ev == EVENT::week_is_change) {
-			if (Base::goalEnd) {
+			if (Base::goalEnd_) {
 
 			}
 			else {

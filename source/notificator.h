@@ -24,9 +24,9 @@ public:
     using ptrObject = std::shared_ptr<NotificationObject>;
 
 private:
-    std::map<EVENT, std::deque<ptrObject>> listerens;
+    std::map<EVENT, std::deque<ptrObject>> listerens_;
 
-    static Notificator* NotificatorInstance;
+    static Notificator* NotificatorInstance_;
 
     Notificator() {};
 public:

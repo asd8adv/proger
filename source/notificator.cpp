@@ -1,6 +1,6 @@
 #include "notificator.h"
 
-Notificator* Notificator::NotificatorInstance = nullptr;;
+Notificator* Notificator::NotificatorInstance_ = nullptr;
 
 //
 /*********************************
@@ -8,14 +8,14 @@ Notificator* Notificator::NotificatorInstance = nullptr;;
 *********************************/
 
 Notificator* Notificator::GetInstance() {
-	if (NotificatorInstance == nullptr)
-		NotificatorInstance = new Notificator();
-	return NotificatorInstance;
+	if (NotificatorInstance_ == nullptr)
+		NotificatorInstance_ = new Notificator();
+	return NotificatorInstance_;
 }
 
 void Notificator::notifListerens(EVENT ev) {
-	auto it = listerens.find(ev);
-	if (it != listerens.end()) {
+	auto it = listerens_.find(ev);
+	if (it != listerens_.end()) {
 		std::for_each(it->second.begin(), it->second.end(), [ev](ptrObject obj) {
 			(obj)->onEvent(ev);
 			});
@@ -23,11 +23,11 @@ void Notificator::notifListerens(EVENT ev) {
 }
 
 void Notificator::addSubscriber(EVENT ev, ptrObject sub) {
-	listerens[ev].push_back(sub);
+	listerens_[ev].push_back(sub);
 }
 
 void Notificator::removeSubscriber(EVENT ev, ptrObject sub) {
-	auto vec = &listerens[ev];
+	auto vec = &listerens_[ev];
 	auto it = std::find(vec->begin(), vec->end(), sub);
 	if (it == vec->end()) {
 		std::source_location location = std::source_location::current();

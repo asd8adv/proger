@@ -3,9 +3,9 @@
 
 class Calendar : public Drawable {
 	using Base = Drawable;
-	int week;
-	int day;
-	sf::Font fnt;
+	int week_;
+	int day_;
+	sf::Font fnt_;
 	sf::Text dayText_;
 	sf::Text weekText_;
 

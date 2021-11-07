@@ -11,11 +11,11 @@ protected:
 public:
 	Drawable(const std::string& resourcename, bool isUseMask = false);
 
-	void virtual draw(sf::RenderWindow& wnd);
-
 	void setVisible(bool vsbl);
 	void setScale(sf::Vector2f scale);
 	void virtual setPosition(sf::Vector2f pos);
     
 	sf::Vector2f getPosition();
+
+	void virtual draw(sf::RenderWindow& wnd);
 };

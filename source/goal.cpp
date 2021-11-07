@@ -4,62 +4,62 @@
 ***********struct goal************
 *********************************/
 
-goal::goal() :current(0), required(0), goalEnd(0), Base("")
+goal::goal() :current_(0), required_(0), goalEnd_(0), Base("")
 {
-	fnt.loadFromFile(getFontResourceName());
-	goalText.setFont(fnt);
-	goalText.setColor(sf::Color::Black);
+	fnt_.loadFromFile(getFontResourceName());
+	goalText_.setFont(fnt_);
+	goalText_.setColor(sf::Color::Black);
 }
 
-goal::goal(int cur, int req) :current(cur), required(req), goalEnd(0), Base("")
+goal::goal(int cur, int req) :current_(cur), required_(req), goalEnd_(0), Base("")
 {
-	fnt.loadFromFile(getFontResourceName());
-	goalText.setFont(fnt);
-	goalText.setColor(sf::Color::Black);
+	fnt_.loadFromFile(getFontResourceName());
+	goalText_.setFont(fnt_);
+	goalText_.setColor(sf::Color::Black);
 }
 
 void goal::setPosition(sf::Vector2f pos) {
-	goalText.setPosition(pos);
+	goalText_.setPosition(pos);
 }
 
 
 void goal::setDescription(std::string desc) {
-	description = desc;
+	description_ = desc;
 	updateDescription();
 }
 void goal::updateDescription() {
-	std::string str = description;
+	std::string str = description_;
 	str += " ";
-	str += std::to_string(current);
+	str += std::to_string(current_);
 	str += "/";
-	str += std::to_string(required);
-	goalText.setString(str);
+	str += std::to_string(required_);
+	goalText_.setString(str);
 }
 
 bool goal::isGoalEnd() {
-	return goalEnd;
+	return goalEnd_;
 }
 
 bool goal::increment(int value) {
-	current += value;
-	if (current > required) {
-		current = required;
-		goalEnd = true;
+	current_ += value;
+	if (current_ > required_) {
+		current_ = required_;
+		goalEnd_ = true;
 	}
 	else {
-		goalEnd = false;
+		goalEnd_ = false;
 	}
-	if (current < 0) {
-		current = 0;
+	if (current_ < 0) {
+		current_ = 0;
 	}
 	updateDescription();
-	return goalEnd;
+	return goalEnd_;
 }
 
 void goal::draw(sf::RenderWindow& wnd) {
 	if (visible_) {
 		Base::draw(wnd);
-		wnd.draw(goalText);
+		wnd.draw(goalText_);
 	}
 }
 

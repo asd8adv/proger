@@ -6,49 +6,26 @@
 #include <algorithm>
 
 
-using buttons = std::vector<std::shared_ptr<BaseButton>>;
 
 class ButtonManager
 {
-	int selectedScreenId;
-	std::map<int, std::shared_ptr<buttons>> buttonsMap ;// key - its id window, value - its vector<button> for this window 
+	using buttons = std::vector<std::shared_ptr<BaseButton>>;
+	int selectedScreenId_;
+	std::map<int, std::shared_ptr<buttons>> buttonsMap_ ;// key - its id window, value - its vector<button> for this window 
 public:
-	ButtonManager() {
-	}
-	void setScreenId(int id) {
-		selectedScreenId = id;
-	}
-	void addButton(std::shared_ptr<BaseButton> btn, int id) {
-		if (buttonsMap.find(id) == buttonsMap.end()) {
-			buttonsMap.emplace(id, std::make_shared<buttons>());
-		}
-		buttonsMap[id].get()->push_back(btn);
-		setScreenId(id);
-	}
+	ButtonManager();
 
-	void checkColision(sf::Vector2i pos) {
-		buttonsMap[selectedScreenId].get();
-		std::for_each(buttonsMap[selectedScreenId].get()->begin(), buttonsMap[selectedScreenId].get()->end(), [pos](std::shared_ptr<BaseButton> btn) {
-			btn->checkHover(sf::Vector2f(pos));
-		});
-	}
+	void setScreenId(int id);
 
-	void update(float dt) {
-		std::for_each(buttonsMap[selectedScreenId].get()->begin(), buttonsMap[selectedScreenId].get()->end(), [dt](std::shared_ptr<BaseButton> btn) {
-			btn->update(dt);
-		});
-	}
+	void addButton(std::shared_ptr<BaseButton> btn, int id);
+
+	void checkColision(sf::Vector2i pos);
+
+	void update(float dt);
 	
-	void mousePressed() {
-		std::for_each(buttonsMap[selectedScreenId].get()->begin(), buttonsMap[selectedScreenId].get()->end(), [](std::shared_ptr<BaseButton> btn) {
-			btn->pressed();
-			});
-	}
+	void mousePressed();
 
-	virtual void draw(sf::RenderWindow& wind) {
-		for(auto btn: *(buttonsMap[selectedScreenId]))
-			btn->draw(wind);
-	};
+	virtual void draw(sf::RenderWindow& wind);
 
 private:
 
