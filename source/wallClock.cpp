@@ -25,13 +25,13 @@ void WallClock::dayChange() {
 }
 
 WallClock* WallClock::GetInstance() {
-	if (WallClockInstance == nullptr) {
-		WallClockInstance = new WallClock();
+	if (WallClockInstance_ == nullptr) {
+		WallClockInstance_ = new WallClock();
 	}
-	return WallClockInstance;
+	return WallClockInstance_;
 }
 
-WallClock* WallClock::WallClockInstance = nullptr;;
+WallClock* WallClock::WallClockInstance_ = nullptr;;
 
 
 /************************

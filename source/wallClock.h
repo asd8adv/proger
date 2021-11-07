@@ -5,7 +5,7 @@
 class WallClock {
 	int selectedClock_;
 	const int clockCount_;
-	static WallClock* WallClockInstance;
+	static WallClock* WallClockInstance_;
 
 
 	WallClock();
