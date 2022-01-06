@@ -13,8 +13,8 @@ Calendar::Calendar(sf::Vector2f pos, bool isUseMask) :
 	weekText_.setFont(fnt_);
 	dayText_.setCharacterSize(42);
 	weekText_.setCharacterSize(42);
-	dayText_.setPosition(pos.x + 70, pos.y + 180);
-	weekText_.setPosition(pos.x + 70, pos.y + 60);
+	dayText_.setPosition(pos.x + 50, pos.y + 195);
+	weekText_.setPosition(pos.x + 50, pos.y + 95);
 	dayText_.setFillColor(sf::Color::Black);
 	weekText_.setFillColor(sf::Color::Black);
 }

@@ -94,3 +94,10 @@ public:
 
 	virtual void draw(sf::RenderWindow& wind) override;
 };
+
+/*
+* todo
+class iconButton :BaseButton {
+
+};
+*/

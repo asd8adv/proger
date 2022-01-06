@@ -10,7 +10,7 @@ class Calendar : public Drawable {
 	sf::Text weekText_;
 
 	std::string getSpriteResourceName() {
-		return "res/calendar.png";
+		return "res/nw/calendar.png";
 	}
 
 	std::string getFontResourceName() {

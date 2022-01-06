@@ -24,7 +24,7 @@ public:
 
 };
 
-class WallClockDrawable :public  NotificationObject {
+class WallClockDrawable : public Drawable {
 	using ptrDrawable = std::shared_ptr<Drawable>;
 	std::vector<ptrDrawable> clocks_;
 	int selectedClock_;

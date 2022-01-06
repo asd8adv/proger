@@ -12,8 +12,8 @@ void Player::setGoalsPosition(sf::Vector2f pos) {
 }
 
 void Player::draw(sf::RenderWindow& wnd) {
-	goals_.draw(wnd);
-	msg_.draw(wnd);
+	//goals_.draw(wnd);
+	//msg_.draw(wnd);
 }
 
 void Player::addParamValue(playerParams param, int count) {
