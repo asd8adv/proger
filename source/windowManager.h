@@ -9,7 +9,8 @@
 
 
 enum class window_type : int {
-	play_window = 1
+	play_window = 1,
+	main_menu
 };
 
 class BaseWindow {
@@ -63,10 +64,11 @@ public:
 	void addWindow(windowPtr window);
 	windowPtr getCurrentWindow();
 	windowPtr getWindow(window_type windId);
-	virtual void draw(sf::RenderWindow& wind);
+	void draw(sf::RenderWindow& wind);
 	int getCurrentWnbNum() const;
 	std::shared_ptr<ButtonManager> getButtonManager();
-	virtual void mousePressed(sf::Vector2i pos);
+	void mousePressed(sf::Vector2i pos);
+	void checkColision(sf::Vector2i pos);
 
 protected:
 	void onCurrentWindowChanged();

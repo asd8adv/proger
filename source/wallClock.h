@@ -37,7 +37,7 @@ public:
 
 	void draw(sf::RenderWindow& wind);
 
-	void virtual onEvent(EVENT ev)override;
+	virtual void onEvent(EVENT ev)override;
 
 	void setPosition(sf::Vector2f vec);
 

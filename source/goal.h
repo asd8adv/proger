@@ -32,13 +32,13 @@ public:
 	goal();
 	goal(int cur, int req);
 
-	void virtual setPosition(sf::Vector2f pos);
+	virtual void setPosition(sf::Vector2f pos);
 
 	void setDescription(sf::String desc);
 
 	void updateDescription();
 
-	void virtual draw(sf::RenderWindow& wnd);
+	virtual void draw(sf::RenderWindow& wnd);
 
 	bool increment(int value);
 

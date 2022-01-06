@@ -41,13 +41,13 @@ public:
 
 	virtual void setState(State state);
 	virtual void setScale(float scale);
-	void virtual setSize(sf::Vector2u size);
+	virtual void setSize(sf::Vector2u size);
 	virtual void setPosition(sf::Vector2f pos);
 	virtual void setDefaultColor();
 	virtual void setGreyColor();
 
-	sf::Vector2f virtual getPosition();
-	sf::Vector2u virtual getSize();
+	virtual sf::Vector2f getPosition();
+	virtual sf::Vector2u getSize();
 	float getScale();
 
 	virtual void update(float dt);
@@ -59,9 +59,9 @@ public:
 
 	void pressed();
 
-	void virtual restorePosition();
+	virtual void restorePosition();
 
-	void virtual draw(sf::RenderWindow& wind);
+	virtual void draw(sf::RenderWindow& wind);
 };
 
 
@@ -90,7 +90,7 @@ public:
 	virtual void hovering(bool isHover) override;
 	virtual bool checkHover(sf::Vector2f pos) override;
 
-	void virtual restorePosition() override;
+	virtual void restorePosition() override;
 
 	virtual void draw(sf::RenderWindow& wind) override;
 };

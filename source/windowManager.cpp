@@ -91,6 +91,7 @@ std::shared_ptr<BaseWindow> WindowManager::getWindow(window_type windId) {
 
 void WindowManager::draw(sf::RenderWindow& wind) {
 	getCurrentWindow()->draw(wind);
+	buttonManager->draw(wind);
 }
 
 
@@ -98,8 +99,16 @@ int WindowManager::getCurrentWnbNum() const {
 	return currentWindow_;
 }
 
+
+
 std::shared_ptr<ButtonManager> WindowManager::getButtonManager() {
 	return buttonManager;
+}
+
+
+void WindowManager::checkColision(sf::Vector2i pos) {
+	buttonManager->checkColision(pos);
+	getCurrentWindow()->checkColision(pos);
 }
 
 void WindowManager::mousePressed(sf::Vector2i pos) {

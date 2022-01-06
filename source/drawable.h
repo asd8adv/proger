@@ -17,18 +17,18 @@ public:
 
 	void setVisible(bool vsbl);
 	void setScale(sf::Vector2f scale);
-	void virtual setPosition(sf::Vector2f pos);
+	virtual void setPosition(sf::Vector2f pos);
     
 	sf::Vector2f getPosition();
 
-	void virtual checkColision(sf::Vector2i value) {
+	virtual void checkColision(sf::Vector2i value) {
 		return;
 	}
-	void virtual pressed() {
+	virtual void pressed() {
 		return;
 	}
 
-	void virtual draw(sf::RenderWindow& wnd);
+	virtual void draw(sf::RenderWindow& wnd);
 };
 
 class DrawableButton :public Drawable, BaseObject {
@@ -37,53 +37,80 @@ class DrawableButton :public Drawable, BaseObject {
 	Drawable contour_;
 protected:
 	sf::Vector2f contourDiff;
-	bool visible_;
 	bool isHovered_;
 	std::function<void()> callback_;
 public:
-	DrawableButton(const std::string& resourcename, const std::string& contourResourcename, bool isUseMask = false, bool contourIsUseMask = false) :
-		Base(resourcename, isUseMask),
-		contourDiff({ 0,0 }), 
-		contour_(contourResourcename, contourIsUseMask) {
-		auto size = img_.getSize();
-		object::height = size.y;
-		object::width = size.x;
-	}
+	DrawableButton(const std::string& resourcename, const std::string& contourResourcename, bool isUseMask = false, bool contourIsUseMask = false);
 
 	template<typename F>
 	void setCallback(F&& f) {
 		callback_ = std::forward<F>(f);
 	}
 
-	void virtual pressed() override {
-		if (isHovered_)
-			callback_();
-	}
+	virtual void pressed() override;
 
-	void setContourDiff(sf::Vector2f pos) {
-		contourDiff = pos;
-	}
+	void setContourDiff(sf::Vector2f pos);
 
-	void virtual setPosition(sf::Vector2f pos) override {
-		Base::setPosition(pos);
-		contour_.setPosition({ pos.x + contourDiff.x,pos.y + contourDiff.y });
-		object::x = pos.x;
-		object::y = pos.y;
-	}
+	virtual void setPosition(sf::Vector2f pos) override;
 	
-	void virtual checkColision(sf::Vector2i value) override {
-		isHovered_ = isCollision(*this, sf::Vector2f(value));
-		updateContour();
+	virtual void checkColision(sf::Vector2i value) override;
+
+	virtual void draw(sf::RenderWindow& wnd) override;
+
+	void updateContour();
+};
+
+
+struct Bar {
+	enum class state : int {
+		empty = 0,
+		half = 1,
+		full = 2
+	};
+	const std::string getBarResource(state st) const {
+		switch (st) {
+		case state::full:
+			return "res/nw/mini_bar_full.png";
+		case state::half:
+			return "res/nw/mini_bar_half.png";
+		case state::empty:
+		default:
+			return "res/nw/mini_bar_empty.png";
+		}
 	}
 
-	void virtual draw(sf::RenderWindow& wnd) override {
-		Base::draw(wnd);
-		contour_.draw(wnd);
-	}
-
-	void updateContour() {
-		contour_.setVisible(isHovered_);
-	}
+	const std::string getBarSelectedFrame() {
+		return "res/nw/mini_bar_selected.png";
+	};
 
 };
+
+class DrawableBar : public Drawable {
+	Bar bar_;
+	DrawableButton empty_;
+	DrawableButton half_;
+	DrawableButton full_;
+	Bar::state curState_;
+public:
+	DrawableBar();
+
+	bool empty();
+
+	void setLessState();
+
+	void setCurrentState(int st);
+
+	void setCurrentState(Bar::state st);
+
+	void updateBar();
+
+	virtual void draw(sf::RenderWindow& wnd) override;
+
+	virtual void setPosition(sf::Vector2f pos) override;
+
+	virtual void checkColision(sf::Vector2i value) override;
+
+};
+
+
 

@@ -18,6 +18,6 @@ public:
 
 	void printMessage(const sf::String& str, float time = 5);
 
-	void virtual draw(sf::RenderWindow& wnd) override;
+	virtual void draw(sf::RenderWindow& wnd) override;
 
 };
