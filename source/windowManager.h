@@ -10,7 +10,8 @@
 
 enum class window_type : int {
 	play_window = 1,
-	main_menu
+	main_menu,
+	bookcase
 };
 
 class BaseWindow {
@@ -59,7 +60,7 @@ public:
 	static WindowManager* GetInstance();
 
 	void setCurrentWnbNum(int value);
-	//end singleton metodsa
+	//end singleton metods
 
 	void addWindow(windowPtr window);
 	windowPtr getCurrentWindow();

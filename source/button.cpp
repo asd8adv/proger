@@ -76,8 +76,13 @@ void BaseButton::update(float dt) {
 }
 
 void BaseButton::pressed() {
-	if (hovered_)
+	if (hovered_){
+		if (!callback_) {
+			std::cout << "BaseButton::pressed() bad callback!!!\n";
+			return;
+		}
 		callback_();
+	}
 }
 
 void BaseButton::updateState() {
@@ -142,10 +147,10 @@ void BaseButton::restorePosition() {
 }
 
 /***************************
-******class bigButton******
+******class BigButton******
 ***************************/
 
-bigButton::bigButton(const std::string& resourceName, const sf::String& text, const sf::Vector2f& pos, bool isUseMask) :description_(text), Base(resourceName, isUseMask) {
+BigButton::BigButton(const std::string& resourceName, const sf::String& text, const sf::Vector2f& pos, bool isUseMask) :description_(text), Base(resourceName, isUseMask) {
 	Base::setPosition(pos);
 	fnt_.loadFromFile(getFontResourceName());
 	text_.setString(description_);
@@ -153,34 +158,34 @@ bigButton::bigButton(const std::string& resourceName, const sf::String& text, co
 	updateTextPos(sf::Vector2f(Base::getSize()));
 }
 
-void bigButton::bigButton::setScale(float scale) {
+void BigButton::BigButton::setScale(float scale) {
 	if (scale != scale_) {
 		Base::setScale(scale);
 	}
 }
 
-void bigButton::update(float dt) {
+void BigButton::update(float dt) {
 	Base::update(dt);
 	setScale(scale_);
 }
 
-void bigButton::draw(sf::RenderWindow& wind) {
+void BigButton::draw(sf::RenderWindow& wind) {
 	Base::draw(wind);
 	wind.draw(text_);
 }
 
-void bigButton::setPosition(sf::Vector2f pos) {
+void BigButton::setPosition(sf::Vector2f pos) {
 	Base::setPosition(pos);
 	setScale(scale_);
 }
 
-void bigButton::setTextDeltaPosition(sf::Vector2f pos) {
+void BigButton::setTextDeltaPosition(sf::Vector2f pos) {
 	textDPos_ = pos;
 	sf::Vector2f size(Base::getSize());
 	updateTextPos(size);
 }
 
-void bigButton::updateTextPos(sf::Vector2f size) {
+void BigButton::updateTextPos(sf::Vector2f size) {
 	auto scale = Base::getScale();
 	auto iconPos = Base::getPosition();
 	//iconPos *= scale;
@@ -189,14 +194,14 @@ void bigButton::updateTextPos(sf::Vector2f size) {
 	text_.setPosition(iconPos + dPos);
 }
 
-void bigButton::setSize(sf::Vector2f size) {
+void BigButton::setSize(sf::Vector2f size) {
 	Base::setSize({ unsigned(size.x),unsigned(size.y) });
 	auto iconPos = Base::getPosition();
 	updateTextPos(size);
 	BaseObject::set(iconPos.x, iconPos.y, size.x, size.y);
 }
 
-void bigButton::hovering(bool isHover) {
+void BigButton::hovering(bool isHover) {
 	Base::hovering(isHover);
 	if (hovered_) {
 		text_.setColor(sf::Color::White);
@@ -208,13 +213,13 @@ void bigButton::hovering(bool isHover) {
 	updateTextPos(size);
 }
 
-void bigButton::restorePosition() {
+void BigButton::restorePosition() {
 	Base::restorePosition();
 	sf::Vector2f size(Base::getSize());
 	updateTextPos(size);
 }
 
-bool bigButton::checkHover(sf::Vector2f pos) {//to do rename
+bool BigButton::checkHover(sf::Vector2f pos) {//to do rename
 	auto haveCollision = isCollision(*this, pos);
 	if (haveCollision) {
 		if (hovered_ != haveCollision) {

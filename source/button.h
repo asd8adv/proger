@@ -65,7 +65,7 @@ public:
 };
 
 
-class bigButton : public BaseButton
+class BigButton : public BaseButton
 {
 	using Base = BaseButton;
 
@@ -77,7 +77,7 @@ class bigButton : public BaseButton
 	sf::Text text_;
 	sf::Vector2f textDPos_;
 public:
-	bigButton(const std::string& resourceName, const sf::String& text, const sf::Vector2f& pos, bool isUseMask = false);
+	BigButton(const std::string& resourceName, const sf::String& text, const sf::Vector2f& pos, bool isUseMask = false);
 
 	virtual void setScale(float scale) override;
 	virtual void setPosition(sf::Vector2f pos);

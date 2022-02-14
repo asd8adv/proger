@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "notificator.h"
 #include "magicBox.h"
+#include "button.h"
 #include <functional>
 
 
@@ -31,23 +32,15 @@ public:
 	virtual void draw(sf::RenderWindow& wnd);
 };
 
-class DrawableButton :public Drawable, BaseObject {
-	using Base = Drawable;
+class DrawableButton :public BaseButton, public Drawable {
+	using Base = BaseButton;
 	using object = BaseObject;
 	Drawable contour_;
 protected:
 	sf::Vector2f contourDiff;
-	bool isHovered_;
 	std::function<void()> callback_;
 public:
 	DrawableButton(const std::string& resourcename, const std::string& contourResourcename, bool isUseMask = false, bool contourIsUseMask = false);
-
-	template<typename F>
-	void setCallback(F&& f) {
-		callback_ = std::forward<F>(f);
-	}
-
-	virtual void pressed() override;
 
 	void setContourDiff(sf::Vector2f pos);
 
@@ -109,6 +102,8 @@ public:
 	virtual void setPosition(sf::Vector2f pos) override;
 
 	virtual void checkColision(sf::Vector2i value) override;
+
+	void setContourDiff(sf::Vector2f pos);
 
 };
 

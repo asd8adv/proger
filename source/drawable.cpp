@@ -42,14 +42,9 @@ DrawableButton::DrawableButton(const std::string& resourcename, const std::strin
 	Base(resourcename, isUseMask),
 	contourDiff({ 0,0 }),
 	contour_(contourResourcename, contourIsUseMask) {
-	auto size = img_.getSize();
+	auto size = Base::img_.getSize();
 	object::height = size.y;
 	object::width = size.x;
-}
-
-void DrawableButton::pressed() {
-	if (isHovered_)
-		callback_();
 }
 
 void DrawableButton::setContourDiff(sf::Vector2f pos) {
@@ -64,19 +59,19 @@ void DrawableButton::setPosition(sf::Vector2f pos) {
 }
 
 void DrawableButton::checkColision(sf::Vector2i value) {
-	isHovered_ = isCollision(*this, sf::Vector2f(value));
+	Base::hovered_ = isCollision(*this, sf::Vector2f(value));
 	updateContour();
 }
 
 void DrawableButton::draw(sf::RenderWindow& wnd) {
-	if (visible_) {
+	if (Base::visible_) {
 		Base::draw(wnd);
 		contour_.draw(wnd);
 	}
 }
 
 void DrawableButton::updateContour() {
-	contour_.setVisible(isHovered_);
+	contour_.setVisible(Base::hovered_);
 }
 /*****************
 *****DrawableBar*****
@@ -134,4 +129,12 @@ void DrawableBar::checkColision(sf::Vector2i value) {
 	half_.checkColision(value);
 	full_.checkColision(value);
 }
+
+
+void DrawableBar::setContourDiff(sf::Vector2f pos) {
+	empty_.setContourDiff(pos);
+	half_.setContourDiff(pos);
+	full_.setContourDiff(pos);
+}
+
 

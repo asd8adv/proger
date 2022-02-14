@@ -1,5 +1,5 @@
 #include "windowManager.h"
-
+#include <utility>
 class WindowManager;
 WindowManager* windowManager = nullptr;
 /***************
@@ -73,7 +73,7 @@ void WindowManager::addWindow(windowPtr window) {
 	auto id = static_cast<window_type>(window->getWindowId());
 	windows_.emplace(id, window);
 }
-
+//need cañhå any time call getWindow - so bad
 std::shared_ptr<BaseWindow> WindowManager::getCurrentWindow() {
 	return getWindow(window_type(currentWindow_));
 }

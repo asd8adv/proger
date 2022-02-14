@@ -31,14 +31,16 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	man1->setPosition({ 750,450 });
 	//bar
 	auto bar = std::make_shared<DrawableBar>();
-	bar->setPosition({ 1269,745 });
+	bar->setContourDiff({ -8, -8 });
+	bar->setPosition({ 1300,745 });
 	bar->setCurrentState(Bar::state::full);
 	//selectedBook
 	auto selectedBook = std::make_shared<DrawableButton>("res/nw/books_table.png", "res/nw/book_selected.png", true, true);
 	selectedBook->setCallback([] {
+		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::bookcase));
 		std::cout << "u are umniy\n";
-		});
-	selectedBook->setContourDiff({ -3, -3 });
+	});
+	selectedBook->setContourDiff(sf::Vector2f( -8, -8 ));
 	selectedBook->setPosition({ 1343, 167 });
 	//WallTimer
 	auto WallTimer = std::make_shared<WallClockDrawable>();
@@ -49,24 +51,30 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 
 	auto buttonMan = WindowManager::GetInstance()->getButtonManager();
 
-	auto btn_drink = std::make_shared<bigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::drink), sf::Vector2f{ 120,500 }, true);
-	btn_drink->setCallback([me, bar]() {
+	auto btn_drink = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::drink), sf::Vector2f{ 1380,680 }, true);
+	btn_drink->setCallback([btn_drink ,me, bar]() {
 		if(!bar->empty()){
 			me->drink();
 			bar->setLessState();
+			btn_drink->setDefaultColor();
+			if(bar->empty())
+				btn_drink->setGreyColor();
+		}
+		else {
+			btn_drink->setGreyColor();
 		}
 		});
 	btn_drink->setSize({ 160, 80 });
 	btn_drink->setTextDeltaPosition({ 14, 22 });
 
-	auto btn_skipDay = std::make_shared<bigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::next_day), sf::Vector2f{ 1190,540 }, true);
+	auto btn_skipDay = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::next_day), sf::Vector2f{ 1190,540 }, true);
 	btn_skipDay->setCallback([me, cal]() {
 		cal->nextDay();
 		});
 	btn_skipDay->setSize({ 160, 80 });
 	btn_skipDay->setTextDeltaPosition({ 14, 22 });
 
-	auto btn_job = std::make_shared<bigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::job), sf::Vector2f{ 1750,400 }, true);
+	auto btn_job = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::job), sf::Vector2f{ 1750,400 }, true);
 	btn_job->setCallback([me]() {
 		me->job();
 		});
@@ -76,6 +84,7 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 
 	buttonMan->addButton(btn_job, 1);
 	buttonMan->addButton(btn_skipDay, 1);
+	buttonMan->addButton(selectedBook, 1);
 	buttonMan->addButton(btn_drink, 1);
 	//add all nodes
 	playWindow->addDrawableObject(bg);
@@ -86,6 +95,27 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	playWindow->addDrawableObject(WallTimer);
 }
 
+void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
+	//bg
+	auto bg = std::make_shared<Drawable>("res/nw/back_book.png");
+	//cal
+
+
+	auto buttonMan = WindowManager::GetInstance()->getButtonManager();
+
+	auto btn_back = std::make_shared<BigButton>("res/nw/l_arrow.png", "", sf::Vector2f{ 0, 0 }, true);
+	btn_back->setCallback([]() {
+		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::play_window));
+	});
+
+	btn_back->setSize({ 120, 100 });
+	//btn_back->setTextDeltaPosition({ 60, 22 });
+
+	buttonMan->addButton(btn_back, 3);
+	//add all nodes
+	bookWindow->addDrawableObject(bg);
+
+};
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "the Proger");
@@ -93,11 +123,14 @@ int main() {
 	Dictionary::GetInstance()->loadFromFile("res/info.txt");
 
 	auto playWindow = std::make_shared<BaseWindow>(window_type::play_window);
+	auto bookWindow = std::make_shared<BaseWindow>(window_type::bookcase);
 	auto me = std::make_shared<Player>();
 	me->init();
 	initPlayWindow(playWindow, me);
+	initBookWindow(bookWindow);
 	auto wndManager = WindowManager::GetInstance();
 	wndManager->addWindow(playWindow);
+	wndManager->addWindow(bookWindow);
 	wndManager->setCurrentWnbNum(1);
     //todo add screen time for updates
 
