@@ -4,7 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include "magicBox.h"
 
-class BaseButton :public BaseObject
+class HoveredObject {
+protected:
+	bool hovered_ = 0;
+	float hoverScale_ = 1.05f;
+public:
+	std::function<void()> callbackHover_;
+	std::function<void()> callbackUnhover_;
+
+	virtual void hovering() 
+	{};
+};
+
+class BaseButton :public BaseObject, public HoveredObject
 {
 public:
 	enum class State {
@@ -24,11 +36,7 @@ protected:
 
 	bool enabled_ = 1;
 	bool visible_ = 1;
-	bool hovered_ = 0;
 	bool scaled_ = 0;
-	float scaleTime_ = 0.5f;
-	float hoverScale_ = 1.05f;
-	const float SCALETIME_ = 0.5f;
 	std::function<void()> callback_;
 
 public:
@@ -38,7 +46,9 @@ public:
 	void setCallback(F&& f) {
 		callback_ = std::forward<F>(f);
 	}
-
+	virtual void hovering() override;
+	virtual void onHovering() {};
+	virtual void onHoveringEnd() {};
 	virtual void setState(State state);
 	virtual void setScale(float scale);
 	virtual void setSize(sf::Vector2u size);
@@ -51,11 +61,9 @@ public:
 	float getScale();
 
 	virtual void update(float dt);
-	void updateScale(float dt);
 	void updateState();
 
 	virtual bool checkHover(sf::Vector2f pos);
-	virtual void hovering(bool isHover);
 
 	void pressed();
 
@@ -79,6 +87,9 @@ class BigButton : public BaseButton
 public:
 	BigButton(const std::string& resourceName, const sf::String& text, const sf::Vector2f& pos, bool isUseMask = false);
 
+	void onHovering() override;
+	void onHoveringEnd() override;
+
 	virtual void setScale(float scale) override;
 	virtual void setPosition(sf::Vector2f pos);
 	virtual void setSize(sf::Vector2f size);
@@ -87,7 +98,8 @@ public:
 	virtual void update(float dt) override;
 	void updateTextPos(sf::Vector2f size);
 
-	virtual void hovering(bool isHover) override;
+
+	virtual void hovering() override;
 	virtual bool checkHover(sf::Vector2f pos) override;
 
 	virtual void restorePosition() override;

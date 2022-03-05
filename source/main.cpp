@@ -16,6 +16,7 @@
 #include "calendar.h"
 #include "dictionary.h"
 #include "windowManager.h"
+#include "drawableObjects.h"
 
 
 const int language=1;//1 rus, 0 eng
@@ -29,6 +30,10 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	//man1 
 	auto man1 = std::make_shared<Drawable>("res/nw/man_1.png", true);
 	man1->setPosition({ 750,450 });
+	//plant_1 plant.png
+	auto plant = std::make_shared<Drawable>("res/nw/plant.png", false);
+	plant->setPosition({ 1630,750 });
+	
 	//bar
 	auto bar = std::make_shared<DrawableBar>();
 	bar->setContourDiff({ -8, -8 });
@@ -88,6 +93,7 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	buttonMan->addButton(btn_drink, 1);
 	//add all nodes
 	playWindow->addDrawableObject(bg);
+	playWindow->addDrawableObject(plant);
 	playWindow->addDrawableObject(cal);
 	playWindow->addDrawableObject(man1);
 	playWindow->addDrawableObject(bar);
@@ -98,18 +104,15 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
 	//bg
 	auto bg = std::make_shared<Drawable>("res/nw/back_book.png");
-	//cal
-
 
 	auto buttonMan = WindowManager::GetInstance()->getButtonManager();
-
+	//escape button
 	auto btn_back = std::make_shared<BigButton>("res/nw/l_arrow.png", "", sf::Vector2f{ 0, 0 }, true);
 	btn_back->setCallback([]() {
 		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::play_window));
 	});
 
 	btn_back->setSize({ 120, 100 });
-	//btn_back->setTextDeltaPosition({ 60, 22 });
 
 	buttonMan->addButton(btn_back, 3);
 	//add all nodes

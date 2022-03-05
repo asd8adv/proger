@@ -17,8 +17,32 @@ void BaseButton::setState(State state) {
 	state_ = state;
 }
 
+
+void BaseButton::hovering() {
+	if (hovered_) {
+		setScale(hoverScale_);
+		auto basePos = sprite_.getPosition();
+		sprite_.setScale(hoverScale_, hoverScale_);
+		auto baseSize = size_;
+		if (scale_ > 1.0f) {
+			auto dpos = sf::Vector2f(size_.x * (scale_ - 1.0) * 0.5f, size_.y * (scale_ - 1.0) * 0.5f);
+			sprite_.setPosition(basePos - dpos);
+		}
+		onHovering();
+	}
+	else {
+		setScale(1.0f);
+		sprite_.setScale(scale_, scale_);
+		restorePosition();
+		onHoveringEnd();
+	}
+
+}
+
+
 void BaseButton::setScale(float scale) {
 	scale_ = scale;
+	sprite_.setScale(scale, scale);
 }
 
 float BaseButton::getScale() {
@@ -43,25 +67,6 @@ sf::Vector2u BaseButton::getSize() {
 	return size_;
 }
 
-void BaseButton::updateScale(float dt) {
-	if (scaled_) {
-		scaleTime_ -= dt;
-		if (scaleTime_ > 0.3f) {
-			scale_ = 1 + 0.5 - scaleTime_;
-		}
-		if (scaleTime_ > 0.2f && scaleTime_ < 0.3f) {
-			scale_ = 1.2;
-		}
-		if (scaleTime_ < 0.2f) {
-			scale_ = 1 + scaleTime_;
-		}
-	}
-	else {
-		scaleTime_ = SCALETIME_;
-		scale_ = 1;
-	}
-}
-
 void BaseButton::setDefaultColor() {
 	sprite_.setColor(sf::Color(255, 255, 255, 255));
 }
@@ -72,7 +77,7 @@ void  BaseButton::setGreyColor() {
 
 void BaseButton::update(float dt) {
 	updateState();
-	//updateScale(dt);
+
 }
 
 void BaseButton::pressed() {
@@ -122,25 +127,6 @@ void BaseButton::draw(sf::RenderWindow& wind) {
 	wind.draw(sprite_);
 }
 
-void BaseButton::hovering(bool isHover) {
-	if (isHover) {
-		if (state_ == State::enabled) {
-			setScale(hoverScale_);
-			auto basePos = sprite_.getPosition();
-			sprite_.setScale(hoverScale_, hoverScale_);
-			auto baseSize = size_;
-			if (scale_ > 1.0f) {
-				auto dpos = sf::Vector2f(size_.x * (scale_ - 1.0) * 0.5f, size_.y * (scale_ - 1.0) * 0.5f);
-				sprite_.setPosition(basePos - dpos);
-			}
-		}
-	}
-	else {
-		setScale(1.0f);
-		sprite_.setScale(scale_, scale_);
-		restorePosition();
-	}
-}
 
 void BaseButton::restorePosition() {
 	sprite_.setPosition(pos_);
@@ -201,17 +187,22 @@ void BigButton::setSize(sf::Vector2f size) {
 	BaseObject::set(iconPos.x, iconPos.y, size.x, size.y);
 }
 
-void BigButton::hovering(bool isHover) {
-	Base::hovering(isHover);
-	if (hovered_) {
-		text_.setColor(sf::Color::White);
-	}
-	else {
-		text_.setColor(sf::Color::Black);
-	}
+
+void BigButton::hovering() {
+	Base::hovering();
 	sf::Vector2f size(Base::getSize());
 	updateTextPos(size);
 }
+
+
+void BigButton::onHovering() {
+	text_.setColor(sf::Color::Blue);
+}
+
+void BigButton::onHoveringEnd() {
+	text_.setColor(sf::Color::White);
+}
+
 
 void BigButton::restorePosition() {
 	Base::restorePosition();
@@ -224,11 +215,11 @@ bool BigButton::checkHover(sf::Vector2f pos) {//to do rename
 	if (haveCollision) {
 		if (hovered_ != haveCollision) {
 			hovered_ = true;
-			hovering(true);
+			hovering();
 		}
 		return haveCollision;
 	}
 	hovered_ = false;
-	hovering(false);
+	hovering();
 	return haveCollision;
 }
