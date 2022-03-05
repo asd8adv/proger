@@ -4,10 +4,24 @@
 #include "goal.h"
 #include "wallClock.h"
 #include "messages.h"
+#include "staticData.h"
+
+enum class playerType {
+	cpp = 1,
+	js,
+	python
+};
+
+
+
 
 class Player :public  NotificationObject {
+
+
 	GoalBlock goals_;
 	playerMessage msg_;
+	std::string playerSpecific = "cpp";// progpamm lang cpp/python/js
+	std::map<stats, std::vector<int>> playerbonus;
 public:
 	Player();
 
@@ -24,6 +38,8 @@ public:
 	void update(float dt);
 
 	void onEvent(EVENT ev) override;
+
+	int getPlayerStats(stats stat);
 
 	void drink();
 

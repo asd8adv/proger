@@ -40,6 +40,22 @@ void Player::onEvent(EVENT ev) {
 
 }
 
+
+int Player::getPlayerStats(stats stat) 
+{
+	auto stats = StaticData::GetInstance()->getStats(playerSpecific);
+	int bonus = 0;
+	auto bonuses = playerbonus[stat];
+	if(playerbonus.count(stat))	{
+		auto vec = playerbonus[stat];
+		for (auto it : vec) {
+			bonus += it;
+		}
+	}
+	return bonus + stats->getStat(stat);
+
+}
+
 void Player::drink() {
 	if (WallClock::GetInstance()->isHaveTime()) {
 		addParamValue(playerParams::alco, 10);

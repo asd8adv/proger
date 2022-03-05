@@ -17,6 +17,7 @@
 #include "dictionary.h"
 #include "windowManager.h"
 #include "drawableObjects.h"
+#include "staticData.h"
 
 
 const int language=1;//1 rus, 0 eng
@@ -121,6 +122,15 @@ void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
 };
 
 int main() {
+	auto data = StaticData::GetInstance();
+	data->init();
+
+
+
+
+
+
+
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "the Proger");
 	Dictionary::GetInstance()->setLanguage(language);
 	Dictionary::GetInstance()->loadFromFile("res/info.txt");

@@ -16,6 +16,7 @@ set(HEADERS
 	${SOURCES_PATH}/dictionary.h	
 	${SOURCES_PATH}/windowManager.h
 	${SOURCES_PATH}/drawableObjects.h
+	${SOURCES_PATH}/staticData.h
 )
 set (SOURCES
 	${SOURCES_PATH}/main.cpp
@@ -31,6 +32,7 @@ set (SOURCES
 	${SOURCES_PATH}/dictionary.cpp	
 	${SOURCES_PATH}/windowManager.cpp
 	${SOURCES_PATH}/drawableObjects.cpp		
+	${SOURCES_PATH}/staticData.cpp
 )
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})

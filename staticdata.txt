@@ -1,0 +1,26 @@
+*start stats*
+*start cpp*
+stressLimit=120
+alcoLimit=100
+burnoutLimit=100
+softSkills=40
+algorithms=80
+math=80
+*end cpp*
+*start python*
+stressLimit=100
+alcoLimit=100
+burnoutLimit=120
+softSkills=60
+algorithms=60
+math=80
+*end python*	
+*start js*
+stressLimit=100
+alcoLimit=120
+burnoutLimit=100
+softSkills=120
+algorithms=50
+math=30
+*end js*
+*end stats*
