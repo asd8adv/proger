@@ -18,6 +18,8 @@ void ButtonManager::addButton(std::shared_ptr<BaseButton> btn, int id) {
 void ButtonManager::checkColision(sf::Vector2i pos) {
 	if (!buttonsMap_.size())
 		return;
+	if (!buttonsMap_.count(selectedScreenId_))
+		return;
 	std::for_each(buttonsMap_[selectedScreenId_].get()->begin(), buttonsMap_[selectedScreenId_].get()->end(), [pos](std::shared_ptr<BaseButton> btn) {
 		btn->checkHover(sf::Vector2f(pos));
 		});
@@ -25,6 +27,8 @@ void ButtonManager::checkColision(sf::Vector2i pos) {
 
 void ButtonManager::update(float dt) {
 	if (!buttonsMap_.size())
+		return;
+	if (!buttonsMap_.count(selectedScreenId_))
 		return;
 	std::for_each(buttonsMap_[selectedScreenId_].get()->begin(), buttonsMap_[selectedScreenId_].get()->end(), [dt](std::shared_ptr<BaseButton> btn) {
 		btn->update(dt);
@@ -34,6 +38,8 @@ void ButtonManager::update(float dt) {
 void ButtonManager::mousePressed() {
 	if (!buttonsMap_.size())
 		return;
+	if (!buttonsMap_.count(selectedScreenId_))
+		return;
 	std::for_each(buttonsMap_[selectedScreenId_].get()->begin(), buttonsMap_[selectedScreenId_].get()->end(), [](std::shared_ptr<BaseButton> btn) {
 		btn->pressed();
 		});
@@ -41,6 +47,8 @@ void ButtonManager::mousePressed() {
 
 void ButtonManager::draw(sf::RenderWindow& wind) {
 	if (!buttonsMap_.size())
+		return;
+	if (!buttonsMap_.count(selectedScreenId_))
 		return;
 	for (auto btn : *(buttonsMap_[selectedScreenId_]))
 		btn->draw(wind);
