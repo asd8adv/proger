@@ -108,7 +108,8 @@ std::shared_ptr<ButtonManager> WindowManager::getButtonManager() {
 
 void WindowManager::checkColision(sf::Vector2i pos) {
 	buttonManager->checkColision(pos);
-	getCurrentWindow()->checkColision(pos);
+	auto wnd=getCurrentWindow();
+	wnd->checkColision(pos);
 }
 
 void WindowManager::mousePressed(sf::Vector2i pos) {

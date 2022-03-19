@@ -69,13 +69,13 @@ public:
 };
 
 //настройка баланса(лол)
-struct GoalBlock {
+struct PlayerStatistics {
 	goal stress;
 	goal alcoholism;
 	goal reputation;
 	goal burnout;
 
-	GoalBlock();
+	PlayerStatistics();
 
 	void setPosition(sf::Vector2f pos);
 

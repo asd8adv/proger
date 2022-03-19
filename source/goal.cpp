@@ -75,7 +75,7 @@ void goal::draw(sf::RenderWindow& wnd) {
 
 
 
-GoalBlock::GoalBlock() :
+PlayerStatistics::PlayerStatistics() :
 	stress(0, 100), 
 	alcoholism(0, 100), 
 	reputation(20, 100), 
@@ -88,7 +88,7 @@ GoalBlock::GoalBlock() :
 	burnout.setDescription(Dictionary::GetInstance()->getString(World::burnout));
 }
 
-void GoalBlock::setPosition(sf::Vector2f pos) {
+void PlayerStatistics::setPosition(sf::Vector2f pos) {
 	stress.setPosition(pos);
 	pos += {0, 28};
 	alcoholism.setPosition(pos);
@@ -98,14 +98,14 @@ void GoalBlock::setPosition(sf::Vector2f pos) {
 	burnout.setPosition(pos);
 }
 
-void GoalBlock::draw(sf::RenderWindow& wnd) {
+void PlayerStatistics::draw(sf::RenderWindow& wnd) {
 	stress.draw(wnd);
 	alcoholism.draw(wnd);
 	reputation.draw(wnd);
 	burnout.draw(wnd);
 }
 
-void GoalBlock::addParamValue(playerParams param, int count) {
+void PlayerStatistics::addParamValue(playerParams param, int count) {
 	switch (param)
 	{
 	case playerParams::stress:

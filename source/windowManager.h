@@ -11,7 +11,8 @@
 enum class window_type : int {
 	play_window = 1,
 	main_menu,
-	bookcase
+	bookcase,
+	player_statistic
 };
 
 class BaseWindow {

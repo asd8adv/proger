@@ -9,3 +9,4 @@
 9   eng:{reputation} rus:{репутация}
 10  eng:{burnout} rus:{выгорание}
 11  eng:{new day, new dollar.} rus:{День прошел, в кармане доллар.}	
+12  eng:{stats} rus:{статистика}	

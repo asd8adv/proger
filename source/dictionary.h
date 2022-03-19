@@ -35,7 +35,8 @@ enum class World :int {
 	alcoholism = 8,
 	reputation = 9,
 	burnout = 10,
-	new_day_new_dollar = 11
+	new_day_new_dollar = 11,
+	stats = 12
 };
 
 class Dictionary {

@@ -34,7 +34,6 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	//plant_1 plant.png
 	auto plant = std::make_shared<Drawable>("res/nw/plant.png", false);
 	plant->setPosition({ 1630,750 });
-	
 	//bar
 	auto bar = std::make_shared<DrawableBar>();
 	bar->setContourDiff({ -8, -8 });
@@ -83,15 +82,24 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	auto btn_job = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::job), sf::Vector2f{ 1750,400 }, true);
 	btn_job->setCallback([me]() {
 		me->job();
-		});
+	});
 
 	btn_job->setSize({ 160, 80 });
 	btn_job->setTextDeltaPosition({ 60, 22 });
+
+	auto btn_stats = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::stats), sf::Vector2f{ 100,400 }, true);
+	btn_stats->setCallback([me]() {
+		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::player_statistic));
+	});
+
+	btn_stats->setSize({ 160, 80 });
+	btn_stats->setTextDeltaPosition({ 60, 22 });
 
 	buttonMan->addButton(btn_job, 1);
 	buttonMan->addButton(btn_skipDay, 1);
 	buttonMan->addButton(selectedBook, 1);
 	buttonMan->addButton(btn_drink, 1);
+	buttonMan->addButton(btn_stats, 1);
 	//add all nodes
 	playWindow->addDrawableObject(bg);
 	playWindow->addDrawableObject(plant);
@@ -100,6 +108,7 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 	playWindow->addDrawableObject(bar);
 	playWindow->addDrawableObject(selectedBook);
 	playWindow->addDrawableObject(WallTimer);
+	playWindow->addDrawableObject(me->getMessagePrinter());
 }
 
 void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
@@ -121,15 +130,16 @@ void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
 
 };
 
+void initStatisticWindow(std::shared_ptr<BaseWindow> statisticWindow, std::shared_ptr<Player> me) {
+
+	auto bg = std::make_shared<Drawable>("res/nw/back_book.png");
+
+
+}
+
 int main() {
 	auto data = StaticData::GetInstance();
 	data->init();
-
-
-
-
-
-
 
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "the Proger");
 	Dictionary::GetInstance()->setLanguage(language);
@@ -137,10 +147,12 @@ int main() {
 
 	auto playWindow = std::make_shared<BaseWindow>(window_type::play_window);
 	auto bookWindow = std::make_shared<BaseWindow>(window_type::bookcase);
+	auto statisticWindow = std::make_shared<BaseWindow>(window_type::player_statistic);
 	auto me = std::make_shared<Player>();
 	me->init();
 	initPlayWindow(playWindow, me);
 	initBookWindow(bookWindow);
+	initStatisticWindow(statisticWindow, me);
 	auto wndManager = WindowManager::GetInstance();
 	wndManager->addWindow(playWindow);
 	wndManager->addWindow(bookWindow);
@@ -179,7 +191,6 @@ int main() {
 
         window.clear();
 		WindowManager::GetInstance()->draw(window);
-        me->draw(window);
         window.display();
     }
 

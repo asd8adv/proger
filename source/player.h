@@ -13,13 +13,22 @@ enum class playerType {
 };
 
 
+//
 
+/*
+void Player::setGoalsPosition(sf::Vector2f pos) {
+	goals_.setPosition(pos);
+}
+
+void Player::addParamValue(playerParams param, int count) {
+	goals_.addParamValue(param, count);
+}
+
+*/
 
 class Player :public  NotificationObject {
-
-
-	GoalBlock goals_;
-	playerMessage msg_;
+	std::shared_ptr<PlayerStatistics> statistics_;
+	std::shared_ptr<playerMessage> msg_;
 	std::string playerSpecific = "cpp";// progpamm lang cpp/python/js
 	std::map<stats, std::vector<int>> playerbonus;
 public:
@@ -27,11 +36,7 @@ public:
 
 	void init();
 
-	void setGoalsPosition(sf::Vector2f pos);
-
-	void draw(sf::RenderWindow& wnd);
-
-	void addParamValue(playerParams param, int count);
+	void drawMsg(sf::RenderWindow& wnd);
 
 	void printMessage(const std::string& str, float time = 10);
 
@@ -44,4 +49,6 @@ public:
 	void drink();
 
 	void job();
+
+	std::shared_ptr<playerMessage> getMessagePrinter();
 };
