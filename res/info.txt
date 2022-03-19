@@ -10,3 +10,6 @@
 10  eng:{burnout} rus:{выгорание}
 11  eng:{new day, new dollar.} rus:{День прошел, в кармане доллар.}	
 12  eng:{stats} rus:{статистика}	
+13  eng:{soft skills} rus:{коммуникация}	
+14  eng:{algoritms} rus:{алгоритмы}	
+15  eng:{maths} rus:{математика}	

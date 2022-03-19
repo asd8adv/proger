@@ -46,6 +46,10 @@ int Player::getPlayerStats(stats stat) {
 	return bonus + stats->getStat(stat);
 }
 
+std::shared_ptr<PlayerStatistics> Player::getStatistics() {
+	return statistics_;
+}
+
 void Player::drink() {
 	if (WallClock::GetInstance()->isHaveTime()) {
 		statistics_->addParamValue(playerParams::alco, 10);

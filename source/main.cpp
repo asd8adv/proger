@@ -89,7 +89,8 @@ void initPlayWindow(std::shared_ptr<BaseWindow> playWindow, std::shared_ptr<Play
 
 	auto btn_stats = std::make_shared<BigButton>("res/BGBtn_1.png", Dictionary::GetInstance()->getString(World::stats), sf::Vector2f{ 100,400 }, true);
 	btn_stats->setCallback([me]() {
-		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::player_statistic));
+		auto it = WindowManager::GetInstance();
+		it->setCurrentWnbNum(int(window_type::player_statistic));
 	});
 
 	btn_stats->setSize({ 160, 80 });
@@ -133,8 +134,24 @@ void initBookWindow(std::shared_ptr<BaseWindow> bookWindow) {
 void initStatisticWindow(std::shared_ptr<BaseWindow> statisticWindow, std::shared_ptr<Player> me) {
 
 	auto bg = std::make_shared<Drawable>("res/nw/back_book.png");
+	auto buttonMan = WindowManager::GetInstance()->getButtonManager();
+	//escape button
+	auto btn_back = std::make_shared<BigButton>("res/nw/l_arrow.png", "", sf::Vector2f{ 0, 0 }, true);
+	btn_back->setCallback([]() {
+		WindowManager::GetInstance()->setCurrentWnbNum(int(window_type::play_window));
+		});
+
+	btn_back->setSize({ 120, 100 });
+	btn_back->setPosition({ 1000, 10 });
+	auto stats = me->getStatistics();
+	stats->setPosition({ 10, 10 });
+	buttonMan->addButton(btn_back, 4);
 
 
+
+
+	statisticWindow->addDrawableObject(bg);
+	statisticWindow->addDrawableObject(stats);
 }
 
 int main() {
@@ -156,6 +173,7 @@ int main() {
 	auto wndManager = WindowManager::GetInstance();
 	wndManager->addWindow(playWindow);
 	wndManager->addWindow(bookWindow);
+	wndManager->addWindow(statisticWindow);
 	wndManager->setCurrentWnbNum(1);
     //todo add screen time for updates
 
@@ -182,7 +200,7 @@ int main() {
             }
         }
 
-        if (event.type = sf::Event::MouseMoved) {
+        if (event.type == sf::Event::MouseMoved) {
             auto pos = sf::Mouse::getPosition(window);
 			wndManager->checkColision({ pos.x,pos.y });
         }

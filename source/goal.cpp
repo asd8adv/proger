@@ -74,18 +74,24 @@ void goal::draw(sf::RenderWindow& wnd) {
 *********************************/
 
 
-
+//инициализация из статистики игрока должна быть епт
 PlayerStatistics::PlayerStatistics() :
 	stress(0, 100), 
 	alcoholism(0, 100), 
-	reputation(20, 100), 
-	burnout(0, 80) 
-{
+	reputation(20, 100),
+	burnout(0, 80),
+	softSkill(20, 100),
+	maths(20, 100),
+	algorithms(20, 100)
+{//зис
 	setPosition({ 200, 40 });
 	stress.setDescription(Dictionary::GetInstance()->getString(World::stress));
 	alcoholism.setDescription(Dictionary::GetInstance()->getString(World::alcoholism));
 	reputation.setDescription(Dictionary::GetInstance()->getString(World::reputation));
 	burnout.setDescription(Dictionary::GetInstance()->getString(World::burnout));
+	softSkill.setDescription(Dictionary::GetInstance()->getString(World::soft_skills));
+	maths.setDescription(Dictionary::GetInstance()->getString(World::maths));
+	algorithms.setDescription(Dictionary::GetInstance()->getString(World::algorithms));
 }
 
 void PlayerStatistics::setPosition(sf::Vector2f pos) {
@@ -96,6 +102,12 @@ void PlayerStatistics::setPosition(sf::Vector2f pos) {
 	reputation.setPosition(pos);
 	pos += {0, 28};
 	burnout.setPosition(pos);
+	pos += {0, 28};
+	softSkill.setPosition(pos);
+	pos += {0, 28};
+	maths.setPosition(pos);
+	pos += {0, 28};
+	algorithms.setPosition(pos);
 }
 
 void PlayerStatistics::draw(sf::RenderWindow& wnd) {
@@ -103,6 +115,9 @@ void PlayerStatistics::draw(sf::RenderWindow& wnd) {
 	alcoholism.draw(wnd);
 	reputation.draw(wnd);
 	burnout.draw(wnd);
+	softSkill.draw(wnd);
+	maths.draw(wnd);
+	algorithms.draw(wnd);
 }
 
 void PlayerStatistics::addParamValue(playerParams param, int count) {

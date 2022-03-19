@@ -56,6 +56,8 @@ void BaseButton::setSize(sf::Vector2u size) {
 void BaseButton::setPosition(sf::Vector2f pos) {
 	sprite_.setPosition(pos);
 	pos_ = pos;
+	x = pos.x;
+	y = pos.y;
 }
 
 

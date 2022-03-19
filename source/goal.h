@@ -6,7 +6,10 @@ enum class playerParams {
 	stress = 0,
 	alco = 1,
 	reputation,//in work 
-	burnout
+	burnout,
+	softSkills,
+	algoritms,
+	math
 };
 
 
@@ -69,11 +72,14 @@ public:
 };
 
 //настройка баланса(лол)
-struct PlayerStatistics {
+struct PlayerStatistics: Drawable {
 	goal stress;
 	goal alcoholism;
 	goal reputation;
 	goal burnout;
+	goal softSkill;
+	goal maths;
+	goal algorithms;
 
 	PlayerStatistics();
 
@@ -81,7 +87,7 @@ struct PlayerStatistics {
 
 	void addParamValue(playerParams param, int count);
 
-	void draw(sf::RenderWindow& wnd);
+	void draw(sf::RenderWindow& wnd)override;
 
 
 };

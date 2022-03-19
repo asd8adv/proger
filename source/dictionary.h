@@ -36,7 +36,10 @@ enum class World :int {
 	reputation = 9,
 	burnout = 10,
 	new_day_new_dollar = 11,
-	stats = 12
+	stats = 12,
+	soft_skills = 13,
+	algorithms = 14,
+	maths = 15
 };
 
 class Dictionary {

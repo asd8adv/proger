@@ -46,6 +46,8 @@ public:
 
 	int getPlayerStats(stats stat);
 
+	std::shared_ptr<PlayerStatistics> getStatistics();
+
 	void drink();
 
 	void job();
